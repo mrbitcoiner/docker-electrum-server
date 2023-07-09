@@ -1,2 +1,4 @@
 .env
 containers/*/volume/data
+mpks.txt
+mpks.txt.bak

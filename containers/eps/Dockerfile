@@ -18,10 +18,13 @@ ENV BITCOIN_HOSTNAME=${BITCOIN_HOSTNAME}
 ENV BITCOIN_PORT=${BITCOIN_PORT}
 
 ADD ./volume/scripts/user_setup.sh /scripts/user_setup.sh
-ADD ./volume/scripts/init.sh /scripts/init.sh
+ADD ./volume/scripts/eps_install.sh /scripts/eps_install.sh
 
 RUN apt update && apt upgrade -y; \
-  # apt install \
-  /scripts/user_setup.sh ${CONTAINER_USER} ${CONTAINER_UID} ${CONTAINER_GID}
+  apt install -y tor python3-pip git; \
+  /scripts/user_setup.sh ${CONTAINER_USER} ${CONTAINER_UID} ${CONTAINER_GID}; \
+  su -c '/scripts/eps_install.sh' ${CONTAINER_USER}
+
+ADD ./volume/scripts/init.sh /scripts/init.sh
 
 ENTRYPOINT ["/scripts/init.sh"] 
