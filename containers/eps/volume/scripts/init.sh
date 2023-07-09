@@ -9,7 +9,7 @@ setup_eps(){
   su -c '/app/scripts/eps_setup.sh' ${CONTAINER_USER}
 }
 start_eps(){
-  su -c '/app/scripts/start.sh' ${CONTAINER_USER}
+  su -c '/app/scripts/eps_start.sh' ${CONTAINER_USER}
 }
 init(){
   start_tor

@@ -27,7 +27,8 @@ build(){
     --build-arg $(get_env 'BITCOIN_PASSWORD') \
     --build-arg $(get_env 'BITCOIN_HOSTNAME') \
     --build-arg $(get_env 'BITCOIN_PORT') \
-    --build-arg $(get_env 'BITCOIN_WALLET')
+    --build-arg $(get_env 'BITCOIN_WALLET') \
+    --build-arg $(get_env 'RESCAN_MODE')
 }
 ignite(){
   docker-compose up \
@@ -58,11 +59,15 @@ clean(){
 add_wallet(){
   docker exec -it eps su - -c "/app/scripts/add_wallet.sh '${1}'" ${USER}
 }
+rescan(){
+  docker exec -it eps su - -c "/app/scripts/eps_rescan.sh" ${USER}
+}
 ####################
 case ${1} in 
   up) up ;;
   down) down ;;
   clean) clean ;;
   add_wallet) add_wallet "${2}" ;;
-  *) printf 'Usage: [ up | down | add_wallet | clean | help ]\n' 1>&2; exit 1 ;;
+  rescan) rescan ;;
+  *) printf 'Usage: [ up | down | add_wallet | rescan | clean | help ]\n' 1>&2; exit 1 ;;
 esac

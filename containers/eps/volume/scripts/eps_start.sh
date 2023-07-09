@@ -9,13 +9,24 @@ readonly EPS_PORT=50002
 readonly EPS_LOG='/tmp/electrumpersonalserver.log' 
 ####################
 mklog(){
-  tor ${EPS_LOG}
+  touch ${EPS_LOG}
 }
-start(){
-  printf "\nStarting electrum server at ${TOR_HOSTNAME}:50002\n"
-  sleep 5
-  tail -f ${EPS_LOG} &
-  ${EPS_PATH} ${CONFIG_FILE} > /dev/null
+run(){
+  case ${1} in 
+    enabled) 
+      printf "\nStarting electrum server in rescan mode\n"
+      printf "You should manually call the rescan command (./control.sh rescan)\n"
+      while true; do sleep 60; done
+    ;;
+    disabled)
+      printf "\nStarting electrum server at ${TOR_HOSTNAME}:50002\n"
+      sleep 10
+      tail -f ${EPS_LOG} &
+      ${EPS_PATH} ${CONFIG_FILE} > /dev/null
+    ;;
+    *) printf "ENV VAR EPS_RESCAN, expected: [ enabled ] [ disabled ], got: ${1}\n" 1>&2; return 1 ;;
+  esac
 }
 ####################
-start
+mklog
+run ${RESCAN_MODE}

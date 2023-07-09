@@ -3,6 +3,7 @@
 set -e
 ####################
 readonly CONFIG_FILE_PATH='/app/data/eps/config.ini'
+readonly CERTS_PATH='/app/data/certs'
 ####################
 check_vars(){
   if [ -z "${BITCOIN_USER}" ]; then printf "ENV VAR BITCOIN_USER not present\n" 1>&2; return 1; fi
@@ -77,8 +78,8 @@ ip_whitelist = *
 #uses the default one, which is fine because by default nobody should be
 # allowed to connect to your server or scan your packets
 #to generate another certificate see https://github.com/spesmilo/electrum-server/blob/ce1b11d7f5f7a70a3b6cc7ec1d3e552436e54ffe/HOWTO.md#step-8-create-a-self-signed-ssl-cert
-certfile = certs/cert.crt
-keyfile = certs/cert.key
+certfile = ${CERTS_PATH}/eps/server.crt
+keyfile = ${CERTS_PATH}/eps/server.key
 
 # Option for disabling the fee histogram calculation
 # It improves server responsiveness but stops mempool-based Electrum features
