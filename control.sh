@@ -26,7 +26,8 @@ build(){
     --build-arg $(get_env 'BITCOIN_USER') \
     --build-arg $(get_env 'BITCOIN_PASSWORD') \
     --build-arg $(get_env 'BITCOIN_HOSTNAME') \
-    --build-arg $(get_env 'BITCOIN_PORT')
+    --build-arg $(get_env 'BITCOIN_PORT') \
+    --build-arg $(get_env 'BITCOIN_WALLET')
 }
 ignite(){
   docker-compose up \
@@ -37,7 +38,7 @@ up(){
   set_scripts_permissions
   copy_dotenv
   setup_network
-  #  build
+  build
   ignite
 }
 down(){
@@ -61,6 +62,7 @@ add_wallet(){
 case ${1} in 
   up) up ;;
   down) down ;;
+  clean) clean ;;
   add_wallet) add_wallet "${2}" ;;
-  *) printf 'Usage: [ add_wallet | up | down | help ]\n' 1>&2; exit 1 ;;
+  *) printf 'Usage: [ up | down | add_wallet | clean | help ]\n' 1>&2; exit 1 ;;
 esac
