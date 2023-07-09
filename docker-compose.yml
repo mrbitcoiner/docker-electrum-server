@@ -1,0 +1,13 @@
+services:
+  eps:
+    container_name: eps
+    build: ./containers/eps
+    volumes:
+      - ./containers/eps/volume:/app
+    networks:
+      - eps
+
+networks:
+  eps:
+    name: bitcoin
+    external: true
