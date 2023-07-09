@@ -1,18 +1,24 @@
 # Docker Electrum Server
-## Just a simple dockerized ambient for electrum personal server to keep your machine clean
+## A dockerized environment for electrum personal server, keeping your machine clean
 
-* Observation: This project is made to work with the docker-bitcoind project
+* This project was made to work with the docker-bitcoind project, but you can run it directly with your bitcoind rpc
 * docker-bitcoind available at https://github.com/mrbitcoiner/docker-bitcoind
 
 ### How to
 * Copy .env.example to .env and set as you want
 
-* To start:
+* Start:
 ```bash
 ./control.sh up
 ```
 
-* To stop:
+* Stop:
 ```bash
 ./control.sh down
 ```
+
+* Help:
+```bash
+./control.sh help
+```
+
